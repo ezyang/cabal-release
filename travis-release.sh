@@ -27,9 +27,7 @@ if [ "$TRAVIS_OS_NAME" = "linux" ]; then
         sudo debootstrap --variant=buildd --arch=i386 trusty /srv/chroot/trusty_i386 http://archive.ubuntu.com/ubuntu/
         sudo mkdir -p /srv/chroot/trusty_i386/srv/work
         sudo mount --bind $PWD /srv/chroot/trusty_i386/srv/work
-        sudo schroot -c trusty_i386 -u root ls /srv
-        sudo schroot -c trusty_i386 -u root ls /srv/work
-        #sudo schroot -c trusty_i386 -u root ls /srv/work/travis-chroot.sh
+        sudo chroot /srv/chroot/trusty_i386 /srv/work/travis-chroot.sh
         sudo chown $USER cabal-install-*.gz
     fi
     cabal update
