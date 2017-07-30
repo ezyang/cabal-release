@@ -15,23 +15,8 @@ matrix:
     - env: ARCH=x86_64 OS=osx
       os: osx
 
-install:
- # hvr's PPA
- - export PATH=/opt/ghc/$GHCVER/bin:$PATH
- - export PATH=/opt/cabal/$BOOTVER/bin:$PATH
- - export PATH=/opt/happy/1.19.5/bin:$PATH
- - export PATH=/opt/alex/3.1.7/bin:$PATH
- # Mac OS X GHC install
- - export PATH=$HOME/.ghc-install/$GHCVER/bin:$PATH
- # Mac OS X Cabal install
- - export PATH=$HOME/bin:$PATH
- # Mac OS X Happy install
- - export PATH=$HOME/.cabal/bin:$PATH
- - ./travis-install.sh
-
 script:
- - (cd cabal && cabal new-build -j2 cabal-install:cabal)
- - gzip cabal/dist-newstyle/build/$ARCH-$OS/ghc-$GHCVER/cabal-install-$VERSION/build/cabal/cabal -c > cabal-install-$VERSION-$ARCH-$OS.gz
+ - ./travis-release.sh
 
 deploy:
   provider: releases
