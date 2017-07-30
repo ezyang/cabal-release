@@ -1,6 +1,5 @@
 language: c
 dist: trusty
-
 env:
   global:
     - VERSION=2.0.0.0 GHCVER=8.0.2 BOOTVER=2.0
