@@ -4,7 +4,7 @@ set -ex
 if [ "$TRAVIS_OS_NAME" = "linux" ]; then
     sudo add-apt-repository -y ppa:hvr/ghc
     sudo apt-get update
-    sudo apt-get install --force-yes ghc-$GHCVER:$ARCH cabal-install-$BOOTVER:$ARCH
+    sudo apt-get install --force-yes ghc-$GHCVER:$UARCH cabal-install-$BOOTVER:$UARCH
 elif [ "$TRAVIS_OS_NAME" = "osx" ]; then
     curl -OL http://downloads.haskell.org/~ghc/$GHCVER/ghc-${GHCVER}-x86_64-apple-darwin.tar.xz
     tar -xJf ghc-*.tar.xz
