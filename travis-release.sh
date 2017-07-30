@@ -14,6 +14,7 @@ if [ "$TRAVIS_OS_NAME" = "linux" ]; then
         sudo apt-get install --force-yes debootstrap schroot
         sudo mkdir -p /srv/chroot/trusty_i386
         sudo debootstrap --variant=buildd --arch=i386 trusty /srv/chroot/trusty_i386 http://archive.ubuntu.com/ubuntu/
+        sudo cp /etc/apt/sources.list /srv/chroot/trusty_i386/etc/apt/
         sudo mkdir -p /srv/chroot/trusty_i386/srv/work
         sudo mount --bind $PWD /srv/chroot/trusty_i386/srv/work
         sudo chroot /srv/chroot/trusty_i386 /srv/work/travis-chroot.sh
