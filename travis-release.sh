@@ -1,7 +1,7 @@
 #!/bin/sh
 set -ex
 
-source ./travis-common.sh
+. ./travis-common.sh
 
 if [ "$TRAVIS_OS_NAME" = "linux" ]; then
     if [ "$ARCH" = "x86_64" ]; then

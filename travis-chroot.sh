@@ -4,7 +4,7 @@ set -ex
 
 cd /srv/work
 
-source ./travis-common.sh
+. ./travis-common.sh
 
 apt-get install -y --force-yes software-properties-common # for add-apt-repository
 add-apt-repository -y ppa:hvr/ghc
