@@ -11,8 +11,8 @@ if [ "$TRAVIS_OS_NAME" = "linux" ]; then
         sudo cp trusty_i386.conf /etc/schroot/chroot.d/trusty_i386.conf
         sudo mkdir -p /srv/chroot/trusty_i386
         sudo debootstrap --variant=buildd --arch=i386 trusty /srv/chroot/trusty_i386 http://archive.ubuntu.com/ubuntu/
-        schroot -l
-        schroot -c trusty_i386 -u root
+        sudo schroot -l
+        sudo schroot -c trusty_i386 -u root
         sudo add-apt-repository -y ppa:hvr/ghc
         sudo apt-get update
         sudo apt-get install --force-yes ghc-$GHCVER cabal-install-$BOOTVER happy-1.19.5 alex-3.1.7
