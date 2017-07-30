@@ -18,15 +18,17 @@ if [ "$TRAVIS_OS_NAME" = "linux" ]; then
         sudo add-apt-repository -y ppa:hvr/ghc
         sudo apt-get update
         sudo apt-get install --force-yes ghc-$GHCVER cabal-install-$BOOTVER happy-1.19.5 alex-3.1.7
+        cabal update
         ./travis-build.sh
     else
         sudo apt-get install --force-yes debootstrap schroot
         sudo cp trusty_i386.conf /etc/schroot/chroot.d/trusty_i386.conf
         sudo mkdir -p /srv/chroot/trusty_i386
         sudo debootstrap --variant=buildd --arch=i386 trusty /srv/chroot/trusty_i386 http://archive.ubuntu.com/ubuntu/
-        ls /srv/chroot/trusty_i386
         sudo mkdir -p /srv/chroot/trusty_i386/srv/work
         sudo mount --bind $PWD /srv/chroot/trusty_i386/srv/work
+        ls /srv/chroot/trusty_i386/srv
+        ls /srv/chroot/trusty_i386/srv/work
         sudo schroot -c trusty_i386 -u root /srv/work/travis-chroot.sh
         sudo chown $USER cabal-install-*.gz
     fi
