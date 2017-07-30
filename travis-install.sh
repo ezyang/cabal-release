@@ -17,6 +17,7 @@ if [ "$TRAVIS_OS_NAME" = "linux" ]; then
         sudo apt-get update
         sudo apt-get install --force-yes ghc-$GHCVER cabal-install-$BOOTVER happy-1.19.5 alex-3.1.7
     fi
+    cabal update
 elif [ "$TRAVIS_OS_NAME" = "osx" ]; then
     curl -OL http://downloads.haskell.org/~ghc/$GHCVER/ghc-${GHCVER}-x86_64-apple-darwin.tar.xz
     tar -xJf ghc-*.tar.xz
@@ -29,6 +30,7 @@ elif [ "$TRAVIS_OS_NAME" = "osx" ]; then
     curl -L http://web.mit.edu/~ezyang/Public/cabal-install-2.0.0.0-osx.gz | gunzip -c > "${HOME}/bin/cabal"
     chmod a+x "${HOME}/bin/cabal"
 
+    cabal update
     cabal install -j2 happy alex
 else
     echo "Not linux or osx: $TRAVIS_OS_NAME"
