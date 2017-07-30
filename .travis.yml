@@ -1,0 +1,39 @@
+language: c
+dist: trusty
+
+env:
+  global:
+    - VERSION=2.0.0.0 GHCVER=8.0.2 BOOTVER=2.0
+
+matrix:
+  include:
+    - env: ARCH=x86_64 OS=linux
+      os: linux
+      sudo: required
+    - env: ARCH=i386 OS=linux
+      os: linux
+      sudo: required
+    - env: ARCH=x86_64 OS=osx
+      os: osx
+
+install:
+ # hvr's PPA
+ - export PATH=/opt/ghc/$GHCVER/bin:$PATH
+ - export PATH=/opt/cabal/$BOOTVER/bin:$PATH
+ # Mac OS X manual install
+ - export PATH=$HOME/.ghc-install/$GHCVER/bin:$PATH
+ - export PATH=$HOME/bin:$PATH
+ - ./travis-install.sh
+
+script:
+ - (cd cabal && cabal new-build -j2 cabal-install:cabal)
+ - gzip cabal/dist-newstyle/build/$ARCH/ghc-$GHCVER/cabal-install-$VERSION/build/cabal/cabal -c > cabal-install-$VERSION-$ARCH-$OS.gz
+
+deploy:
+  provider: releases
+  api_key:
+    secure: UdnbII+6DGwxXqwkjeLMwXQ/ZUFITYlc3MRD2MvjR09zopfQh4ArxX3i9pm/W79CnuWP5hMjIhV9K24jsexLuCX+Qu79dlXuGlkigazshSA6HFXa8lfSkiW4BOGuSpBzeBhqMzgQLkHXaOLV5K5SBTmWedaQVgPqb7wiLg7cP6APVOxvt/hJO+97lS8BXEZRIklfWtn+pccgqg336vlKjfq4kcQZhMulTebXebQPN1mU/p4nLRevv+JVmqDGejbKjtIMjQA2yPjIbzfbQT2l5kZsL35PJkv7t2rk6mJkBBaYIAynrVtovgR1zQaWCAtXk8I37DxSl0mSw4+X8CuaPK66bfVOWwu6pffeUgcP++vhENOpespA7Ti9kgbF1d/BIakNYprccHzBRoFHt1z9/MfZZk6sQY9NGvhiaBvf4Xhmgpmwt4JfURgLfa6NFnThvX5/Ov5cIfAklfH1P3ZpgPkscrrcx1BSu7r/yVg0mAeYT2KyqWSKVtgjJqZViJzf72GPoF69XR5n4v3TLSriDXWDnHl4eGCxfdVzOIzojqY9P7Si7ePMvjQd1MiRBkiUS1gZNg13oJl2DQFAKkLWjmNkQHd4S1JOMLudQutmSKk6apFGSjuv6HAzl83eUhAUCYsqfQUgpDMoiM1b7dLydU87T4Zge/2j+PQl+Z1BJn0=
+  skip_cleanup: true
+  file: cabal-install-$VERSION-$ARCH-$OS.gz
+  on:
+    tags: true
