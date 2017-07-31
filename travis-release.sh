@@ -23,7 +23,6 @@ if [ "$TRAVIS_OS_NAME" = "linux" ]; then
         sudo chroot /srv/chroot/trusty_i386 /srv/work/travis-chroot.sh
         sudo chown $USER cabal-install-*.gz
     fi
-    cabal update
 elif [ "$TRAVIS_OS_NAME" = "osx" ]; then
     curl -OL http://downloads.haskell.org/~ghc/$GHCVER/ghc-${GHCVER}-x86_64-apple-darwin.tar.xz
     tar -xJf ghc-*.tar.xz
