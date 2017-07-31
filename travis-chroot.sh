@@ -6,6 +6,7 @@ cd /srv/work
 
 . ./travis-common.sh
 
+apt-get update
 apt-get install -y --force-yes software-properties-common # for add-apt-repository
 add-apt-repository -y ppa:hvr/ghc
 apt-get update
